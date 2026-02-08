@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple X Viewer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body class="section">
+    <div class="container">
+        <h1 class="title">X Viewer (via Nitter)</h1>
+        
+        <div class="field has-addons">
+            <div class="control">
+                <input id="user-input" class="input" type="text" placeholder="Twitter ID (e.g. elonmusk)">
+            </div>
+            <div class="control">
+                <button class="button is-info" onclick="search()">見る</button>
+            </div>
+        </div>
+
+        <hr>
+
+        {% if posts %}
+            <h2 class="subtitle">@{{ username }} の最新投稿</h2>
+            {% for post in posts %}
+                <div class="box">
+                    <p>{{ post.description | safe }}</p>
+                    <small class="has-text-grey">{{ post.date }}</small>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <script>
+        function search() {
+            const user = document.getElementById('user-input').value;
+            if (user) window.location.href = `/view/${user}`;
+        }
+    </script>
+</body>
+</html>
